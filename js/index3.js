@@ -60,7 +60,8 @@ bookCard.addEventListener('click', (event) => {
         const book = bookManager.getBookById(bookId);
 
         // Update the book status to 'READ'
-        book.status = 'READ';
+        // book.status = 'READ';
+        console.log(book.status);
 
         // Render the books
         bookManager.render();

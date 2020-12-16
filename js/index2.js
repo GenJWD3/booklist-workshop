@@ -31,16 +31,12 @@ newBookForm.addEventListener('submit', (event)=> {
     errorMessage.style.display = "block"
   }else {
     errorMessage.style.display = "none"
-  }
+    // Add the new book to the book manager
+    bookManager.addBook(title, author, language, date, status);
+    // Clear the form after submiting it correctly
+    event.target.reset();
+  };
 
-  // Add the new book to the task manager
-  bookManager.addBook(title, author, language, date, status);
-
-  // Clear the form after submiting it
-  newBookTitle.value = '';
-  newBookAuthor.value = '';
-  newBookLanguage.value = '';
-  newBookDate.value = '';
 });
 
 function validFormFieldInput(data){
@@ -52,21 +48,27 @@ const bookCard = document.querySelector('#book-card');
 bookCard.addEventListener('click', (event) => {
 
   if(event.target.classList.contains('done-button')){
+
     const button = event.target;
     const parentBook = button.parentElement.parentElement;
+
+    // Garantee the return of the id as a number
     const parentBookId = Number(parentBook.id);
     
+    // Find the book id that matches the parent id
     const book = bookManager.books.find(book => book.id === parentBookId);
 
-    book.status = 'Read';
-    
-    const badge = parentBook.getElementsByClassName('badge');
-    badge[0].classList.remove('badge-danger');
-    badge[0].classList.add('badge-success');
-    badge[0].innerHTML = `Read`;
-    
-    // console.log(book.status);
-    button.remove();
-  }
+    // Change the book status
+    // book.status = 'READ';
+
+    // If statement to garantee the changes on the UI matches the array of books
+    if(book.status === 'READ') {
+      const badge = parentBook.getElementsByClassName('badge');
+        badge[0].classList.remove('badge-danger');
+        badge[0].classList.add('badge-success');
+        badge[0].innerHTML = `READ`;
+        button.remove();
+    };
+  };
 });
 

@@ -17,8 +17,8 @@ class BookManager {
       author: author,
       language: language,
       date: date,
-      status: 'To read',
-    }
+      status: 'TO READ',
+    };
     // push the new book into the array 
     this.books.push(newBook);
     
