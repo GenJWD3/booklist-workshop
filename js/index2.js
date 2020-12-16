@@ -37,10 +37,10 @@ newBookForm.addEventListener('submit', (event)=> {
   bookManager.addBook(title, author, language, date);
 
   // Clear the form after submiting it
-  // newBookTitle.value = '';
-  // newBookAuthor.value = '';
-  // newBookLanguage.value = '';
-  // newBookDate.value = '';
+  newBookTitle.value = '';
+  newBookAuthor.value = '';
+  newBookLanguage.value = '';
+  newBookDate.value = '';
 });
 
 function validFormFieldInput(data){
