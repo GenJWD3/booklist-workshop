@@ -17,6 +17,7 @@ class BookManager {
       author: author,
       language: language,
       date: date,
+      status: 'To read',
     }
     // push the new book into the array 
     this.books.push(newBook);
@@ -34,9 +35,10 @@ class BookManager {
     const list = document.createElement('ul');
     list.className ='list-group';
     // Create an HTML card to display the new book added
-    list.innerHTML = `<li class="list-group-item mt-2">
+    list.innerHTML = `<li id=${newBook.id} class="list-group-item mt-2">
                       <div class="d-flex w-100 mt-2 justify-content-between align-items-center">
                         <h5>${newBook.title}</h5>
+                        <span class="badge badge-danger">${newBook.status}</span>
                       </div>
                       <div class="d-flex w-100 mb-3 justify-content-between">
                         <small>Author: ${newBook.author}</small>
@@ -44,12 +46,14 @@ class BookManager {
                       </div>
                       <div class="d-flex w-100 mt-3 justify-content-between align-items-center">
                         <small>Published: ${formattedDate}</small>
+                        <button class="btn btn-outline-success done-button">Mark As Read</button>
                       </div>
                       </li> 
           `; 
     // Append the new HTML card to the empty div
     card.appendChild(list);
-  }          
+    
+  }     
 }
   
   

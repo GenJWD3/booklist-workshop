@@ -18,11 +18,28 @@ class BookManager {
       author: author,
       language: language,
       date: date,
-    }
+      status: 'TO READ',
+    };
     // push the new book into the array 
     this.books.push(newBook);
     
-  }
+  };
+
+  /* Update status*/ 
+  // Method to get the book id to update status
+  getBookById(bookId) {
+    let foundBook;
+
+    for (let i = 0; i < this.books.length; i++) {
+
+      const book = this.books[i];
+
+      if(book.id === bookId){
+        foundBook = book;
+      };
+    };
+    return foundBook;
+  };
 
    /*Display list of books*/
   render() {
@@ -36,25 +53,26 @@ class BookManager {
       // Save the formatted date in a variable
         const formattedDate = publishedDate.getDate() + '/' + (publishedDate.getMonth() + 1) + '/' + publishedDate.getFullYear();  
         
-        const bookHtml = createBookHtml(book.title, book.author, book.language,formattedDate);
+        const bookHtml = createBookHtml(book.title, book.author, book.language,formattedDate, book.status);
 
         booksHtmlList.push(bookHtml);
-      }
+      };
         const booksHtml = booksHtmlList.join('\n');
 
         const booksList = document.querySelector('#book-card');
         booksList.innerHTML = booksHtml;
 
-    }   
+    };  
     
   }
   
-  const createBookHtml = (title, author, language, date) => {
+  const createBookHtml = (title, author, language, date, status) => {
 
     return `
             <li class="list-group-item mt-2">
             <div class="d-flex w-100 mt-2 justify-content-between align-items-center">
             <h5>${title}</h5>
+            <span class="badge ${status === 'TO READ' ? 'badge-danger' : 'badge-success'}">${status}</span>
             </div>
             <div class="d-flex w-100 mb-3 justify-content-between">
             <small>Author: ${author}</small>
@@ -62,6 +80,7 @@ class BookManager {
             </div>
             <div class="d-flex w-100 mt-3 justify-content-between align-items-center">
             <small>Published: ${date}</small>
+            <button class="btn btn-outline-success done-button ${status === 'TO READ' ? 'visible' : 'invisible'}">Mark As Read</button>
             </div>
             </li>
           `;

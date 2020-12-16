@@ -27,14 +27,14 @@ newBookForm.addEventListener('submit', (event)=> {
     errorMessage.innerHTML = "Please put the language the book is writen.";
     errorMessage.style.display = "block"
   }else if (!validFormFieldInput(date)) {
-    errorMessage.innerHTML = "Please select the publishing date";
+    errorMessage.innerHTML = "Please select the publishing date.";
     errorMessage.style.display = "block"
   }else {
     errorMessage.style.display = "none"
   }
 
   // Add the new book to the task manager
-  bookManager.addBook(title, author, language, date);
+  bookManager.addBook(title, author, language, date, status);
 
   // Clear the form after submiting it
   newBookTitle.value = '';
@@ -46,4 +46,27 @@ newBookForm.addEventListener('submit', (event)=> {
 function validFormFieldInput(data){
   return data !== null && data !== '';
 };
+
+const bookCard = document.querySelector('#book-card');
+
+bookCard.addEventListener('click', (event) => {
+
+  if(event.target.classList.contains('done-button')){
+    const button = event.target;
+    const parentBook = button.parentElement.parentElement;
+    const parentBookId = Number(parentBook.id);
+    
+    const book = bookManager.books.find(book => book.id === parentBookId);
+
+    book.status = 'Read';
+    
+    const badge = parentBook.getElementsByClassName('badge');
+    badge[0].classList.remove('badge-danger');
+    badge[0].classList.add('badge-success');
+    badge[0].innerHTML = `Read`;
+    
+    // console.log(book.status);
+    button.remove();
+  }
+});
 
